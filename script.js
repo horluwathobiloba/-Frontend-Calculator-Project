@@ -1,58 +1,66 @@
-const displayField = document.getElementById('display-field');
-const numBtn = document.querySelectorAll(".butnum");
-const buttonOpr = document.querySelectorAll(".butopr");
-const clear = document.getElementById("clear");
-const equalBtn = document.getElementById("equal-btn");
+
+"use strict";
+
+let currentNumber = "";
+let previousNumber = null;
+let operation = null;
+let expression = '';
+
+function handleNumber(number) {
+    currentNumber += number;
+    console.log(`this is the current number: ${currentNumber}`);
+    expression += number;
+    document.getElementById("output").value = expression;
+    // document.getElementById("output").value = currentNumber;
+}
+
+function handleOperation(op) {
+    if (currentNumber === "") return;
+    previousNumber = parseFloat(currentNumber);
+    currentNumber = "";
+    operation = op;
+    expression += op;
+    document.getElementById("output").value = expression;
+}
+
+function calculate() {
 
 
+    if (previousNumber === null || currentNumber === "" || operation === null) return;
 
-document.addEventListener('DOMContentLoaded', function() {
+    let result;
+    const NUM1 = previousNumber;
+    const NUM2 = parseFloat(currentNumber);
 
-    numBtn.forEach(button => {
-        button.addEventListener('click', () => {
-
-            if (displayField.value === "Invalid input"){
-                displayField.value =""
+    switch (operation) {
+        case "+":
+            result = NUM1 + NUM2;
+            break;
+        case "-":
+            result = NUM1 - NUM2;
+            break;
+        case "×":
+            result = NUM1 * NUM2;
+            break;
+        case "%":
+            result = NUM1 % NUM2;
+            break;
+        case "÷":
+            if (NUM2 === 0) {
+                // alert("Division by zero is not allowed!");
+                document.getElementById("output").value = "Division by zero is not allowed!";
+                return;
             }
+            result = NUM1 / NUM2;
+            break;
+            default:
+                return;
+    }
 
-            displayField.value += button.textContent;
-        });
-    });
+    currentNumber = result.toString();
+    previousNumber = null;
+    operation = null;
+    document.getElementById("output").value = currentNumber;
+}
 
-
-    buttonOpr.forEach(button => {
-        button.addEventListener('click', () => {
-            displayField.value += button.textContent;
-        });
-    });
-    
-
-     
-    equalBtn.addEventListener('click', () => {
-        const inputExpression = displayField.value;
-    
-        try {
-            // Sanitize the input to allow only valid characters for evaluation
-            const sanitizedExpression = inputExpression.replace(/[^0-9+/*.\-]/g, "");
-    
-            // Evaluate the sanitized expression
-            const result = eval(sanitizedExpression);
-    
-            // Check if the result is a valid number
-            if (typeof result === 'number' && isFinite(result)) {
-                // Update displayField with the result
-                displayField.value = result;
-            } else {
-                throw new Error('Invalid result');
-            }
-        } catch (error) {
-            // Handle syntax errors or invalid input
-            console.error('Error evaluating expression:', error);
-            // Display an error message to the user
-            displayField.value = 'Invalid input';
-        }
-    });
-    
-
-   
-});
+document.getElementById("output").value = "0";
