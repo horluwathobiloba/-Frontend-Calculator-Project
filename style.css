@@ -10,11 +10,11 @@ body{
     background-color: #313131
 }
 
-h1, p{
+h, p{
     margin-top: 10px;
     text-align: center;
     font-weight: bolder;
-    font-size: 36px;
+    font-size: 30px;
 }
 
 a{
@@ -49,7 +49,7 @@ input[type="text"]{
     overflow-x: hidden;
 }
 
-button{
+.calc-button{
     font-weight: 900;
     font-size: 50px;
     padding: 3px;
@@ -64,11 +64,11 @@ button{
     cursor: pointer;
 }
 
-button:hover{
+.calc-button:hover{
     background-color: #ccc;
 }
 
-button:active{
+.calc-button:active{
     background-color: #a3a0a0;
 }
 
@@ -76,20 +76,15 @@ td{
     padding: 5px;
 }
 
-#equal-btn{
-    background-color: rgb(234, 134, 15);
+#equalsButton{
+    background-color: #f38208;;
     border-right: 2px solid rgb(190, 104, 2);
     border-bottom: 5px solid rgb(190, 104, 2);
 }
 
-#equal-btn:hover{
-    background-color: rgb(190, 92, 1);
+#equalsButton:hover{
+    background-color: #d79147;
 }
-
-#equal-btn:active{
-    background-color: rgb(190, 92, 1);
-}
-
 
 @media(max-width: 999.99px){
     table{
